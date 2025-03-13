@@ -230,7 +230,7 @@ import {
                               <HelpCircleIcon className="h-4 w-4 text-muted-foreground cursor-help" />
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p className="max-w-xs">Total de compras realizadas no período. Valores são importados da seção "Compras Categorizadas".</p>
+                              <p className="max-w-xs">Total de compras realizadas no período. Valores são importados da seção &quot;Compras Categorizadas&quot;.</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>

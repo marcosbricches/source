@@ -137,7 +137,7 @@ export default function ImportDetailsPage() {
               <span>Progresso</span>
               <span className="text-red-500">Interrompido em 68%</span>
             </div>
-            <Progress value={68} className="h-2 bg-muted" indicatorClassName="bg-amber-500" />
+            <Progress value={68} className="h-2 bg-muted [&>div]:bg-amber-500" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
