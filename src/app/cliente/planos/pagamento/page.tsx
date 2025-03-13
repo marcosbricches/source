@@ -120,7 +120,7 @@ export default function PagamentoPage() {
                 </div>
               </div>
 
-              <Alert variant="outline" className="bg-amber-50 border-amber-200">
+              <Alert variant="warning" className="bg-amber-50 border-amber-200">
                 <AlertDescription className="text-amber-800 text-sm">
                   Suas informações de pagamento são processadas com segurança. Não armazenamos dados do seu cartão.
                 </AlertDescription>
@@ -170,7 +170,7 @@ export default function PagamentoPage() {
                 </div>
               </div>
 
-              <Alert variant="outline" className="bg-blue-50 border-blue-200">
+              <Alert variant="default" className="bg-blue-50 border-blue-200">
                 <AlertDescription className="text-blue-800 text-sm">
                   O boleto será enviado para seu e-mail e terá vencimento em 3 dias úteis. É necessário pagar o boleto para ativar sua assinatura.
                 </AlertDescription>
@@ -194,7 +194,7 @@ export default function PagamentoPage() {
                 </Button>
               </div>
 
-              <Alert variant="outline" className="bg-green-50 border-green-200">
+              <Alert variant="default" className="bg-green-50 border-green-200">
                 <AlertDescription className="text-green-800 text-sm">
                   O pagamento via PIX é processado instantaneamente. Após o pagamento, sua assinatura será ativada automaticamente.
                 </AlertDescription>

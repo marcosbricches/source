@@ -18,14 +18,6 @@ import {
   } from "@/components/ui/breadcrumb";
   import { Badge } from "@/components/ui/badge";
   import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow
-  } from "@/components/ui/table";
-  import {
     Select,
     SelectContent,
     SelectItem,
@@ -44,20 +36,12 @@ import {
     TooltipProvider,
     TooltipTrigger
   } from "@/components/ui/tooltip";
-  import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
-  } from "@/components/ui/accordion";
   import { Progress } from "@/components/ui/progress";
   import { Separator } from "@/components/ui/separator";
   import { Slider } from "@/components/ui/slider";
   import { Label } from "@/components/ui/label";
-  import { Input } from "@/components/ui/input";
   import {
     HomeIcon,
-    ChevronDownIcon,
     AlertTriangleIcon,
     CheckCircleIcon,
     TrendingUpIcon,
@@ -296,7 +280,7 @@ import {
                 </div>
               </div>
               <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-                <span>Alvo: > 65%</span>
+                <span>Alvo: {'>'}65%</span>
                 <span className="text-blue-600 font-medium">3,8% acima da meta</span>
               </div>
             </CardContent>
@@ -358,7 +342,7 @@ import {
                 </div>
               </div>
               <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-                <span>Alvo: > 15%</span>
+                <span>Alvo: {'>'}15%</span>
                 <span className="text-amber-600 font-medium">4,8% acima da meta</span>
               </div>
             </CardContent>
@@ -631,7 +615,7 @@ import {
                           <span className="text-sm font-medium">R$ 9.490,65</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <Progress value={39} className="h-2" indicatorClassName="bg-red-500" />
+                          <Progress value={39} className="h-2 [&>div]:bg-red-500" />
                           <span className="text-xs text-muted-foreground ml-2">39%</span>
                         </div>
                         <div className="text-xs text-muted-foreground flex justify-between">
@@ -652,7 +636,7 @@ import {
                           <span className="text-sm font-medium">R$ 4.867,00</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <Progress value={20} className="h-2" indicatorClassName="bg-blue-500" />
+                          <Progress value={20} className="h-2 [&>div]:bg-blue-500" />
                           <span className="text-xs text-muted-foreground ml-2">20%</span>
                         </div>
                         <div className="text-xs text-muted-foreground flex justify-between">
@@ -673,7 +657,7 @@ import {
                           <span className="text-sm font-medium">R$ 5.110,35</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <Progress value={21} className="h-2" indicatorClassName="bg-amber-500" />
+                          <Progress value={21} className="h-2 [&>div]:bg-amber-500" />
                           <span className="text-xs text-muted-foreground ml-2">21%</span>
                         </div>
                         <div className="text-xs text-muted-foreground flex justify-between">
@@ -694,7 +678,7 @@ import {
                           <span className="text-sm font-medium">R$ 4.867,00</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <Progress value={20} className="h-2" indicatorClassName="bg-green-500" />
+                          <Progress value={20} className="h-2 [&>div]:bg-green-500" />
                           <span className="text-xs text-muted-foreground ml-2">20%</span>
                         </div>
                         <div className="text-xs text-muted-foreground flex justify-between">

@@ -148,10 +148,10 @@ export default function IniciarJornadaPFPage() {
                         <SelectValue placeholder="Selecione o tipo de culinária" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="sobremesas">Sobremesas > Gelatos Artesanais</SelectItem>
-                        <SelectItem value="cafeteria">Cafeteria > Café Especial</SelectItem>
-                        <SelectItem value="sandwich">Sanduíches > Hambúrgueres Artesanais</SelectItem>
-                        <SelectItem value="pizza">Pizza > Napoletana</SelectItem>
+                        <SelectItem value="sobremesas">Sobremesas {'>'}  Gelatos Artesanais</SelectItem>
+                        <SelectItem value="cafeteria">Cafeteria {'>'} Café Especial</SelectItem>
+                        <SelectItem value="sandwich">Sanduíches {'>'} Hambúrgueres Artesanais</SelectItem>
+                        <SelectItem value="pizza">Pizza {'>'} Napoletana</SelectItem>
                         {/* Outros tipos de culinária... */}
                       </SelectContent>
                     </Select>

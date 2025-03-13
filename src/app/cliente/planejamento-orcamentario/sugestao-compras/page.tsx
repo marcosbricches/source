@@ -475,7 +475,7 @@ import {
                     <div className="flex flex-col items-center">
                       <span className="text-red-700 font-medium">2 kg</span>
                       <div className="w-full mt-1">
-                        <Progress value={10} max={100} className="h-2" indicatorClassName="bg-red-600" />
+                        <Progress value={10} max={100} className="h-2 bg-red-600" />
                       </div>
                       <span className="text-xs text-red-600 mt-0.5">Crítico (1 dia)</span>
                     </div>
@@ -561,7 +561,7 @@ import {
                     <div className="flex flex-col items-center">
                       <span className="text-amber-700 font-medium">2.5 kg</span>
                       <div className="w-full mt-1">
-                        <Progress value={35} max={100} className="h-2" indicatorClassName="bg-amber-600" />
+                        <Progress value={35} max={100} className="h-2 [--progress-background:theme(colors.amber.600)]" />
                       </div>
                       <span className="text-xs text-amber-600 mt-0.5">Baixo (3 dias)</span>
                     </div>
@@ -646,7 +646,7 @@ import {
                     <div className="flex flex-col items-center">
                       <span className="text-green-700 font-medium">15 kg</span>
                       <div className="w-full mt-1">
-                        <Progress value={60} max={100} className="h-2" indicatorClassName="bg-green-600" />
+                        <Progress value={60} max={100} className="h-2 [&>[role=progressbar]]:bg-green-600" />
                       </div>
                       <span className="text-xs text-green-600 mt-0.5">Adequado (8 dias)</span>
                     </div>

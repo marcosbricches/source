@@ -92,7 +92,7 @@ const planDetails = {
   ]
 };
 
-const PlanoDetalhesPage = ({ params }) => {
+const PlanoDetalhesPage = () => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [confirmAction, setConfirmAction] = React.useState("");
   

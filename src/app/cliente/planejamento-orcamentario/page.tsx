@@ -181,7 +181,7 @@ import {
                       </div>
                       <Badge className="bg-amber-100 text-amber-700">Em andamento</Badge>
                     </div>
-                    <Progress value={65} className="h-2" indicatorClassName="bg-amber-500" />
+                    <Progress value={65} className="h-2 [&>div]:bg-amber-500" />
                   </div>
                 </div>
               </div>

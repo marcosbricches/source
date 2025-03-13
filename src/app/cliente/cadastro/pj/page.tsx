@@ -163,9 +163,9 @@ export default function IniciarJornadaPJPage() {
                         <SelectValue placeholder="Selecione o tipo de culinária" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="italiano">Italiano > Massas Artesanais</SelectItem>
-                        <SelectItem value="japones">Japonês > Sushi</SelectItem>
-                        <SelectItem value="brasileiro">Brasileiro > Churrasco</SelectItem>
+                        <SelectItem value="italiano">Italiano {'>'}Massas Artesanais</SelectItem>
+                        <SelectItem value="japones">Japonês {'>'}Sushi</SelectItem>
+                        <SelectItem value="brasileiro">Brasileiro {'>'}Churrasco</SelectItem>
                         {/* Outros tipos de culinária... */}
                       </SelectContent>
                     </Select>
