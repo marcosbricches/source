@@ -36,7 +36,14 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Esta página serve tanto para criação quanto edição
 // Para edição, seria necessário carregar os dados existentes
-const PlanoFormPage = ({ params }) => {
+interface PageProps {
+  params: {
+    action?: string;
+    id?: string;
+  };
+}
+
+const PlanoFormPage = ({ params }: PageProps) => {
   const isEditing = params?.action === "editar";
   const pageTitle = isEditing ? "Editar Plano" : "Novo Plano";
   
@@ -55,7 +62,21 @@ const PlanoFormPage = ({ params }) => {
   ];
 
   // Dados fictícios para o modo de edição
-  const planData = isEditing ? {
+  interface PlanData {
+    id?: number;
+    nome: string;
+    descricao: string;
+    valorMensal: number | string;
+    valorAnual: number | string;
+    status: string;
+    freemiumDias: number | string;
+    freemiumLimitacoes: string;
+    dataInicio: string;
+    dataTermino: string;
+    recursos: number[];
+  }
+
+  const planData: PlanData = isEditing ? {
     id: 2,
     nome: "Plano Premium",
     descricao: "Recursos avançados para médios restaurantes com suporte prioritário e ferramentas de análise detalhada para otimização de custos e operações.",

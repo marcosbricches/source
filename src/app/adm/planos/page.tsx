@@ -55,7 +55,7 @@ import {
 
 const PlanosPage = () => {
   const [openDialog, setOpenDialog] = React.useState(false);
-  const [selectedPlan, setSelectedPlan] = React.useState(null);
+  const [selectedPlan, setSelectedPlan] = React.useState<Plan | null>(null);
 
   // Dados fictícios para o protótipo
   const plans = [
@@ -109,7 +109,20 @@ const PlanosPage = () => {
     }
   ];
 
-  const handleDeleteClick = (plan) => {
+  interface Plan {
+    id: number;
+    nome: string;
+    descricao: string;
+    valorMensal: number;
+    valorAnual: number;
+    status: string;
+    assinantes: number;
+    dataInicio: string;
+    dataTermino: string | null;
+    freemium: number;
+  }
+
+  const handleDeleteClick = (plan: Plan): void => {
     setSelectedPlan(plan);
     setOpenDialog(true);
   };
@@ -376,7 +389,7 @@ const PlanosPage = () => {
             <Button 
               type="button" 
               className="devio-btn devio-btn-danger"
-              disabled={selectedPlan && selectedPlan.assinantes > 0}
+              disabled={(selectedPlan?.assinantes ?? 0) > 0}
             >
               Excluir
             </Button>

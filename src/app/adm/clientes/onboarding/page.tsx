@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
-import { Progress } from "@/components/ui/progress"
 
 export default function RelatoriosOnboardingPage() {
   return (
@@ -157,48 +156,7 @@ export default function RelatoriosOnboardingPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="mb-8 space-y-6">
-                  <div className="space-y-2">
-                    <div className="devio-flex devio-justify-between">
-                      <span className="devio-text-sm devio-font-medium">Cadastro de informações básicas</span>
-                      <span className="devio-text-sm devio-font-medium">95%</span>
-                    </div>
-                    <Progress value={95} className="h-2 bg-neutral-200" indicatorClassName="bg-primary" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="devio-flex devio-justify-between">
-                      <span className="devio-text-sm devio-font-medium">Planejamento orçamentário inicial</span>
-                      <span className="devio-text-sm devio-font-medium">82%</span>
-                    </div>
-                    <Progress value={82} className="h-2 bg-neutral-200" indicatorClassName="bg-primary" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="devio-flex devio-justify-between">
-                      <span className="devio-text-sm devio-font-medium">Cadastro de produtos</span>
-                      <span className="devio-text-sm devio-font-medium">76%</span>
-                    </div>
-                    <Progress value={76} className="h-2 bg-neutral-200" indicatorClassName="bg-primary" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="devio-flex devio-justify-between">
-                      <span className="devio-text-sm devio-font-medium">Integração financeira</span>
-                      <span className="devio-text-sm devio-font-medium">68%</span>
-                    </div>
-                    <Progress value={68} className="h-2 bg-neutral-200" indicatorClassName="bg-primary" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="devio-flex devio-justify-between">
-                      <span className="devio-text-sm devio-font-medium">Configuração de relatórios</span>
-                      <span className="devio-text-sm devio-font-medium">53%</span>
-                    </div>
-                    <Progress value={53} className="h-2 bg-neutral-200" indicatorClassName="bg-primary" />
-                  </div>
-                </div>
-                
+                              
                 <div className="devio-flex devio-justify-center">
                   <Button className="devio-btn devio-btn-primary">
                     <ArrowUpRight className="w-4 h-4 mr-2" />
