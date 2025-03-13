@@ -42,12 +42,6 @@ import {
     SelectValue
   } from "@/components/ui/select";
   import {
-    Tabs,
-    TabsList,
-    TabsTrigger,
-    TabsContent
-  } from "@/components/ui/tabs";
-  import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
@@ -81,13 +75,11 @@ import {
     CheckIcon,
     MoreVerticalIcon,
     EditIcon,
-    SaveIcon,
     RefreshCwIcon,
     CalendarIcon,
     BuildingIcon,
     LineChartIcon,
     DollarSignIcon,
-    PackageIcon,
     LayersIcon,
     InfoIcon,
     XIcon

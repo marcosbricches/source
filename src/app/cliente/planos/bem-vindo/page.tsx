@@ -6,8 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import { CheckCircle, ChevronRightIcon, FastForward, Pause, Play, Rewind, SkipForward } from "lucide-react";
-import Link from "next/link";
+import { CheckCircle, ChevronRightIcon, FastForward, Play, Rewind, SkipForward } from "lucide-react";
 
 export default function BemVindoPage() {
   return (

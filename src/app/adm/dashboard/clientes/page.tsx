@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   LineChart, 
@@ -17,12 +16,9 @@ import {
   TrendingUp,
   ShoppingCart,
   Activity,
-  Filter,
   CheckCircle,
-  XCircle,
   Clock,
   ArrowUpRight,
-  ArrowDownRight,
   MenuSquare,
   Info,
   Bell

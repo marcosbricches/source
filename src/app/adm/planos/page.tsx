@@ -10,7 +10,6 @@ import {
   Edit, 
   Trash2, 
   Eye, 
-  ChevronDown, 
   TrendingUp, 
   Users, 
   DollarSign, 
@@ -53,7 +52,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
 
 const PlanosPage = () => {
   const [openDialog, setOpenDialog] = React.useState(false);

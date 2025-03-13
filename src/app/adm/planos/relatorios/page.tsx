@@ -8,14 +8,12 @@ import {
   Download, 
   FileText, 
   Calendar, 
-  Filter, 
   BarChart3, 
   TrendingUp, 
   Users, 
   DollarSign, 
   Percent,
   Clock,
-  ChevronDown,
   Search,
   PieChart,
   LineChart,
@@ -26,7 +24,6 @@ import {
   Card, 
   CardContent, 
   CardDescription, 
-  CardFooter, 
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
@@ -41,7 +38,6 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import {
   Tabs,
   TabsContent,
@@ -53,7 +49,6 @@ import {
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuLabel, 
-  DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import {

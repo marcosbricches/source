@@ -7,11 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // Icons
-import { Plus, Search, Filter, MoreVertical, Eye, Pencil, Trash, ArrowUpDown, User, Users, ShieldAlert, UserCog, Info, AlertTriangle } from 'lucide-react';
+import { Plus, Search, Filter, Eye, Pencil, Trash, ArrowUpDown, User, Users, ShieldAlert, UserCog, Info, AlertTriangle } from 'lucide-react';
 
 export default function ColaboradoresPage() {
   return (

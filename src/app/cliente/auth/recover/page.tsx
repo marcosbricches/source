@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ArrowLeft, CheckCircle, AlertTriangle, Mail } from "lucide-react";
+import { ArrowLeft, CheckCircle, Mail } from "lucide-react";
 
 export default function RecoverPasswordPage() {
   // O estado de sucesso seria gerenciado pelo componente na aplicação real

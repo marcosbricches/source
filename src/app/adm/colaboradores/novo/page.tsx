@@ -4,7 +4,6 @@ import Link from 'next/link';
 // shadcn/ui components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -21,15 +20,11 @@ import {
   User, 
   Mail, 
   Phone, 
-  Briefcase, 
   Shield, 
-  CheckCircle, 
-  Eye, 
   EyeOff, 
   ShieldAlert, 
   AlertTriangle, 
   X, 
-  Check, 
   Info 
 } from 'lucide-react';
 

@@ -17,26 +17,6 @@ import {
     BreadcrumbSeparator
   } from "@/components/ui/breadcrumb";
   import { Badge } from "@/components/ui/badge";
-  import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow
-  } from "@/components/ui/table";
-  import {
-    Tabs,
-    TabsList,
-    TabsTrigger,
-    TabsContent
-  } from "@/components/ui/tabs";
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger
-  } from "@/components/ui/tooltip";
   import { Progress } from "@/components/ui/progress";
   import { Separator } from "@/components/ui/separator";
   import {
@@ -58,8 +38,6 @@ import {
     BarChart3Icon,
     LineChartIcon,
     ArrowRightIcon,
-    ArrowUpRightIcon,
-    ArrowDownRightIcon,
     CalendarIcon,
     ClockIcon,
     AlertTriangleIcon,

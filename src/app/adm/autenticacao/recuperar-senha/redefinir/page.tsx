@@ -1,5 +1,4 @@
 // app/recuperar-senha/redefinir/page.tsx
-import Image from 'next/image';
 import Link from 'next/link';
 
 // shadcn/ui components
@@ -7,10 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Icons
-import { Eye, EyeOff, Lock, CheckCircle, X, Check } from 'lucide-react';
+import {  EyeOff, Lock, X, Check } from 'lucide-react';
 
 export default function RedefinirSenhaPage() {
   return (

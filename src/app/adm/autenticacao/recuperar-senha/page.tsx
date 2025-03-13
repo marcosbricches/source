@@ -1,5 +1,4 @@
 // app/recuperar-senha/page.tsx
-import Image from 'next/image';
 import Link from 'next/link';
 
 // shadcn/ui components
@@ -9,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Icons
-import { Mail, ArrowLeft, AlertCircle, CheckCircle } from 'lucide-react';
+import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 
 export default function RecuperarSenhaPage() {
   return (

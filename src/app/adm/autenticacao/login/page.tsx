@@ -1,15 +1,13 @@
 // app/login/page.tsx
-import Image from 'next/image';
-import Link from 'next/link';
+
 
 // shadcn/ui components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Icons
-import { Eye, EyeOff, AlertCircle, Mail, Lock } from 'lucide-react';
+import { EyeOff, Mail, Lock } from 'lucide-react';
 
 export default function LoginPage() {
   return (

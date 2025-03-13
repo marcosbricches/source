@@ -4,8 +4,7 @@ import {
     CardContent, 
     CardDescription, 
     CardHeader, 
-    CardTitle,
-    CardFooter
+    CardTitle
   } from "@/components/ui/card";
   import { Input } from "@/components/ui/input";
   import { Label } from "@/components/ui/label";
@@ -46,7 +45,6 @@ import {
     ClockIcon
   } from "lucide-react";
   import { Badge } from "@/components/ui/badge";
-  import { Separator } from "@/components/ui/separator";
   
   export default function PreenchimentoDados() {
     return (

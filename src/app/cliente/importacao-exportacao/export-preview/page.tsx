@@ -1,24 +1,21 @@
 // pages/export-preview.tsx
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 // Ícones
 import { 
-  ArrowLeft, 
-  Download, 
+  ArrowLeft,  
   FileText,
   FileSpreadsheet,
   BarChart3,
   PieChart,
   LineChart,
   Calendar,
-  Filter,
   Edit,
   Printer,
   Share2

@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 
@@ -13,15 +12,11 @@ import Link from "next/link";
 import { 
   ArrowLeft, 
   AlertCircle, 
-  CheckCircle, 
-  XCircle, 
-  FileText, 
   Download, 
   RotateCw, 
   FileSpreadsheet,
   Calendar,
   User,
-  Clock,
   Info,
 } from "lucide-react";
 

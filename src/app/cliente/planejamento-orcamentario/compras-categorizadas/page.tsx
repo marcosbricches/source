@@ -85,7 +85,6 @@ import {
     ArrowUpDownIcon,
     DownloadIcon,
     SaveIcon,
-    ChevronsUpDownIcon,
     PieChartIcon,
     LightbulbIcon,
     DollarSignIcon

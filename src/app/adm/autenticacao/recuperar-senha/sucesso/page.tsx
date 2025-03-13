@@ -1,5 +1,4 @@
 // app/recuperar-senha/sucesso/page.tsx
-import Image from 'next/image';
 import Link from 'next/link';
 
 // shadcn/ui components

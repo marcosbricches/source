@@ -24,7 +24,6 @@ import {
   Calendar,
   BarChart3,
   ArrowRight,
-  X,
   Eye
 } from "lucide-react";
 
