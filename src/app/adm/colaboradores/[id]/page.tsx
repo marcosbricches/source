@@ -1,431 +1,319 @@
-// app/colaboradores/[id]/page.tsx
-import Link from 'next/link';
+// app/dashboard/colaboradores/[id]/page.tsx
+"use client"
 
-// shadcn/ui components
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Separator } from "@/components/ui/separator";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
+import { ArrowLeftIcon, EditIcon, PowerIcon, TrashIcon, UserIcon, MailIcon, PhoneIcon, BriefcaseIcon, ShieldIcon, KeyIcon } from "lucide-react"
 
-// Icons
-import { 
-  ArrowLeft, 
-  Pencil, 
-  Trash, 
-  User, 
-  Mail, 
-  Phone, 
-  Briefcase, 
-  Shield, 
-  Calendar, 
-  ShieldAlert, 
-  AlertTriangle, 
-  CheckCircle,
-  FileText,
-  Activity,
-  UserCog,
-  CircleAlert
-} from 'lucide-react';
+// Ícone de calendário
+const CalendarIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+    <line x1="16" x2="16" y1="2" y2="6" />
+    <line x1="8" x2="8" y1="2" y2="6" />
+    <line x1="3" x2="21" y1="10" y2="10" />
+  </svg>
+)
 
-export default function VisualizarColaboradorPage() {
-  // Em um app real, este ID seria dinâmico
-  const colaboradorId = "001";
+export default function DetalhesColaboradorPage() {
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [showStatusDialog, setShowStatusDialog] = useState(false)
   
+  // Mock data para o protótipo
+  const colaborador = {
+    id: 1,
+    nome: "João Silva",
+    email: "joao.silva@rookystem.com",
+    telefone: "(11) 98765-4321",
+    cargo: "Supervisor Financeiro",
+    nivel: "Supervisor",
+    status: "Ativo",
+    dataCriacao: "12/01/2025",
+    ultimoAcesso: "16/03/2025 14:32",
+    criadoPor: "Admin"
+  }
+
   return (
-    <div className="p-6 min-h-screen bg-neutral-50">
-      {/* PageContainer: default */}
-      <div className="devio-container max-w-3xl">
-        {/* PageHeader: colaborator-detail */}
-        <div className="devio-section mb-8">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <Link href="/colaboradores">
-                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full">
-                  <ArrowLeft className="h-4 w-4" />
-                </Button>
-              </Link>
-              <div>
-                <div className="devio-badge devio-badge-primary mb-1">Detalhes do Colaborador</div>
-                <h1 className="devio-text-2xl devio-font-bold">Ana Silva</h1>
-              </div>
-            </div>
-            <div className="devio-flex devio-gap-2">
-              <Link href="/colaboradores">
-                <Button variant="outline" className="devio-btn devio-btn-outline">
-                  Voltar
-                </Button>
-              </Link>
-              <Link href={`/colaboradores/editar/${colaboradorId}`}>
-                <Button variant="outline" className="devio-btn devio-btn-outline devio-btn-primary">
-                  <Pencil className="mr-2 h-4 w-4" />
-                  Editar
-                </Button>
-              </Link>
-              <Button variant="outline" className="devio-btn devio-btn-outline text-red-600 border-red-200 hover:bg-red-50">
-                <Trash className="mr-2 h-4 w-4" />
-                Excluir
-              </Button>
-            </div>
+    <div className="container py-8 max-w-5xl mx-auto">
+      {/* Navegação/Breadcrumbs */}
+      <div className="flex items-center border-b pb-4 mb-6">
+        <nav className="flex">
+          <Button variant="link" className="px-2 text-muted-foreground">Dashboard</Button>
+          <span className="text-muted-foreground flex items-center">/</span>
+          <Button variant="link" className="px-2 text-muted-foreground">Colaboradores</Button>
+          <span className="text-muted-foreground flex items-center">/</span>
+          <Button variant="link" className="px-2 font-medium">Detalhes</Button>
+        </nav>
+      </div>
+      
+      {/* Cabeçalho da página com ações */}
+      <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Badge variant="outline">Administração</Badge>
+            <span className="text-muted-foreground">/</span>
+            <Badge variant="outline">Colaborador</Badge>
           </div>
-          
-          {/* AccessRestrictionWarning: master-only */}
-          <Alert className="devio-alert devio-alert-primary mb-6">
-            <ShieldAlert className="h-4 w-4" />
-            <AlertDescription>
-              <span className="devio-font-medium">Acesso restrito</span>
-              <br />
-              <span className="devio-text-sm">Somente usuários com nível Master podem editar ou excluir colaboradores.</span>
-            </AlertDescription>
-          </Alert>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{colaborador.nome}</h1>
+          <div className="flex items-center gap-2">
+            <Badge className={colaborador.status === "Ativo" ? "bg-green-500" : "bg-gray-500"}>
+              {colaborador.status}
+            </Badge>
+            <p className="text-muted-foreground">ID: #{colaborador.id}</p>
+          </div>
         </div>
         
-        {/* UserProfileHeader: default */}
-        <div className="mb-8">
-          <Card className="devio-card">
-            <CardContent className="p-6">
-              <div className="devio-flex devio-flex-col md:devio-flex-row devio-gap-6 devio-items-center md:devio-items-start">
-                <Avatar className="h-24 w-24 border-4 border-primary-100">
-                  <AvatarFallback className="bg-primary-500 text-white text-xl">AS</AvatarFallback>
-                </Avatar>
-                
-                <div className="devio-flex devio-flex-col devio-items-center md:devio-items-start devio-gap-2 flex-1">
-                  <div className="devio-flex devio-flex-col devio-items-center md:devio-items-start devio-gap-1">
-                    <h2 className="devio-text-xl devio-font-bold">Ana Silva</h2>
-                    <p className="devio-text-muted">Supervisor Financeiro</p>
+        <div className="flex flex-col sm:flex-row gap-3 mt-4 md:mt-0">
+          <Button variant="outline" className="gap-2">
+            <ArrowLeftIcon className="h-4 w-4" />
+            Voltar
+          </Button>
+          <Button variant="outline" className="gap-2 text-blue-600 border-blue-200 hover:bg-blue-50">
+            <EditIcon className="h-4 w-4" />
+            Editar
+          </Button>
+          <Button 
+            variant="outline" 
+            className={`gap-2 ${colaborador.status === "Ativo" ? "text-amber-600 border-amber-200 hover:bg-amber-50" : "text-green-600 border-green-200 hover:bg-green-50"}`}
+            onClick={() => setShowStatusDialog(true)}
+          >
+            <PowerIcon className="h-4 w-4" />
+            {colaborador.status === "Ativo" ? "Desativar" : "Ativar"}
+          </Button>
+          <Button 
+            variant="outline" 
+            className="gap-2 text-red-600 border-red-200 hover:bg-red-50"
+            onClick={() => setShowDeleteDialog(true)}
+          >
+            <TrashIcon className="h-4 w-4" />
+            Excluir
+          </Button>
+        </div>
+      </div>
+
+      {/* Conteúdo com Tabs */}
+      <Tabs defaultValue="info" className="mb-6">
+        <TabsList className="mb-4">
+          <TabsTrigger value="info">Informações</TabsTrigger>
+          <TabsTrigger value="acesso">Acesso</TabsTrigger>
+          <TabsTrigger value="atividade">Atividade</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="info">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base font-medium">Dados Pessoais</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <UserIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Nome Completo</p>
+                    <p className="text-muted-foreground">{colaborador.nome}</p>
                   </div>
-                  
-                  <div className="devio-flex devio-gap-2 mt-2">
-                    <Badge className="devio-badge devio-badge-primary">
-                      <ShieldAlert className="h-3 w-3 mr-1" />
-                      Master
-                    </Badge>
-                    <Badge className="devio-badge devio-badge-success">
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                      Ativo
-                    </Badge>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MailIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">E-mail</p>
+                    <p className="text-muted-foreground">{colaborador.email}</p>
                   </div>
-                  
-                  <div className="devio-flex devio-gap-4 mt-4 flex-wrap">
-                    <div className="devio-flex devio-items-center devio-gap-2">
-                      <div className="devio-icon-container devio-icon-container-sm devio-icon-primary">
-                        <Mail className="h-3.5 w-3.5" />
-                      </div>
-                      <span className="devio-text-sm">ana.silva@exemplo.com</span>
-                    </div>
-                    
-                    <div className="devio-flex devio-items-center devio-gap-2">
-                      <div className="devio-icon-container devio-icon-container-sm devio-icon-primary">
-                        <Phone className="h-3.5 w-3.5" />
-                      </div>
-                      <span className="devio-text-sm">(11) 98765-4321</span>
-                    </div>
-                    
-                    <div className="devio-flex devio-items-center devio-gap-2">
-                      <div className="devio-icon-container devio-icon-container-sm devio-icon-primary">
-                        <Calendar className="h-3.5 w-3.5" />
-                      </div>
-                      <span className="devio-text-sm">Cadastrado em 05/01/2025</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <PhoneIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Telefone</p>
+                    <p className="text-muted-foreground">{colaborador.telefone}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base font-medium">Função</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <BriefcaseIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Cargo</p>
+                    <p className="text-muted-foreground">{colaborador.cargo}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <ShieldIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Nível de Acesso</p>
+                    <p className="text-muted-foreground">{colaborador.nivel}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="acesso">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base font-medium">Informações de Acesso</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <KeyIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Status da Conta</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Badge className={colaborador.status === "Ativo" ? "bg-green-100 text-green-800 hover:bg-green-100" : "bg-gray-100 text-gray-800 hover:bg-gray-100"}>
+                        {colaborador.status}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">
+                        {colaborador.status === "Ativo" ? "Acesso permitido ao sistema" : "Acesso bloqueado ao sistema"}
+                      </span>
                     </div>
                   </div>
                 </div>
-                
-                <div className="devio-stat-card w-full md:w-auto shrink-0">
-                  <div className="devio-stat-label">ID do Colaborador</div>
-                  <div className="devio-stat-value font-mono">#001</div>
+
+                <div className="flex items-start gap-3">
+                  <UserIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Último Acesso</p>
+                    <p className="text-muted-foreground">{colaborador.ultimoAcesso}</p>
+                  </div>
                 </div>
+                
+                <div className="mt-4">
+                  <Button variant="outline" className="w-full">Redefinir Senha</Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base font-medium">Informações do Registro</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <UserIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Criado por</p>
+                    <p className="text-muted-foreground">{colaborador.criadoPor}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CalendarIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div>
+                    <p className="font-medium">Data de Criação</p>
+                    <p className="text-muted-foreground">{colaborador.dataCriacao}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="atividade">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base font-medium">Histórico de Atividades</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center py-8 text-muted-foreground">
+                <p>Histórico de atividades do colaborador.</p>
               </div>
             </CardContent>
           </Card>
-        </div>
-        
-        {/* DetailsTabs: default */}
-        <Tabs defaultValue="info" className="w-full">
-          <TabsList className="devio-grid devio-grid-3 mb-6">
-            <TabsTrigger value="info" className="devio-text-base">
-              <User className="h-4 w-4 mr-2" />
-              Informações
-            </TabsTrigger>
-            <TabsTrigger value="access" className="devio-text-base">
-              <Shield className="h-4 w-4 mr-2" />
-              Acesso
-            </TabsTrigger>
-            <TabsTrigger value="activity" className="devio-text-base">
-              <Activity className="h-4 w-4 mr-2" />
-              Atividade
-            </TabsTrigger>
-          </TabsList>
-          
-          {/* TabContent: basic-info */}
-          <TabsContent value="info">
-            <Card className="devio-card">
-              <CardHeader>
-                <h2 className="devio-text-lg devio-font-semibold">Informações Pessoais</h2>
-              </CardHeader>
-              
-              <CardContent className="p-6">
-                <div className="space-y-6">
-                  <div className="devio-grid devio-grid-2 gap-6">
-                    {/* InfoItem: name */}
-                    <div className="space-y-2">
-                      <p className="devio-text-xs devio-text-muted">Nome Completo</p>
-                      <div className="devio-flex devio-items-center devio-gap-2">
-                        <User className="h-4 w-4 text-primary-500" />
-                        <p className="devio-text-base">Ana Silva</p>
-                      </div>
-                    </div>
-                    
-                    {/* InfoItem: email */}
-                    <div className="space-y-2">
-                      <p className="devio-text-xs devio-text-muted">E-mail</p>
-                      <div className="devio-flex devio-items-center devio-gap-2">
-                        <Mail className="h-4 w-4 text-primary-500" />
-                        <p className="devio-text-base">ana.silva@exemplo.com</p>
-                      </div>
-                    </div>
-                    
-                    {/* InfoItem: phone */}
-                    <div className="space-y-2">
-                      <p className="devio-text-xs devio-text-muted">Telefone</p>
-                      <div className="devio-flex devio-items-center devio-gap-2">
-                        <Phone className="h-4 w-4 text-primary-500" />
-                        <p className="devio-text-base">(11) 98765-4321</p>
-                      </div>
-                    </div>
-                    
-                    {/* InfoItem: created-at */}
-                    <div className="space-y-2">
-                      <p className="devio-text-xs devio-text-muted">Data de Cadastro</p>
-                      <div className="devio-flex devio-items-center devio-gap-2">
-                        <Calendar className="h-4 w-4 text-primary-500" />
-                        <p className="devio-text-base">05/01/2025</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <Separator />
-                  
-                  {/* JobDetails: position-info */}
-                  <div className="space-y-4">
-                    <h3 className="devio-text-base devio-font-medium">Informações do Cargo</h3>
-                    
-                    <div className="space-y-2">
-                      <p className="devio-text-xs devio-text-muted">Cargo Atual</p>
-                      <div className="devio-flex devio-items-center devio-gap-2">
-                        <Briefcase className="h-4 w-4 text-primary-500" />
-                        <p className="devio-text-base">Supervisor Financeiro</p>
-                      </div>
-                    </div>
-                    
-                    <div className="devio-highlight-box">
-                      <p className="devio-text-sm devio-font-medium mb-2">Descrição e Responsabilidades:</p>
-                      <p className="devio-text-sm">
-                        Auditoria de assinantes ativos/inativos. Autorização para mudança de forma de pagamento.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          {/* TabContent: access-permissions */}
-          <TabsContent value="access">
-            <Card className="devio-card">
-              <CardHeader>
-                <h2 className="devio-text-lg devio-font-semibold">Acesso ao Sistema</h2>
-              </CardHeader>
-              
-              <CardContent className="p-6">
-                <div className="space-y-6">
-                  <div className="devio-grid devio-grid-2 gap-6">
-                    {/* AccessItem: level */}
-                    <div className="space-y-2">
-                      <p className="devio-text-xs devio-text-muted">Nível de Acesso</p>
-                      <div className="devio-flex devio-items-center devio-gap-2">
-                        <ShieldAlert className="h-4 w-4 text-primary-500" />
-                        <p className="devio-text-base devio-font-medium">Master</p>
-                      </div>
-                      <Badge className="devio-badge devio-badge-primary mt-1">Acesso Total</Badge>
-                    </div>
-                    
-                    {/* AccessItem: status */}
-                    <div className="space-y-2">
-                      <p className="devio-text-xs devio-text-muted">Status da Conta</p>
-                      <div className="devio-flex devio-items-center devio-gap-2">
-                        <CheckCircle className="h-4 w-4 text-success-500" />
-                        <p className="devio-text-base devio-font-medium text-success-600">Ativo</p>
-                      </div>
-                      <p className="devio-text-xs devio-text-muted">Último login: 06/03/2025 às 09:15</p>
-                    </div>
-                  </div>
-                  
-                  <Separator />
-                  
-                  {/* PermissionsDetails: master */}
-                  <div className="space-y-4">
-                    <div className="devio-flex devio-justify-between devio-items-center">
-                      <h3 className="devio-text-base devio-font-medium">Permissões do Nível Master</h3>
-                      <Badge className="devio-badge devio-badge-primary">Privilégios Máximos</Badge>
-                    </div>
-                    
-                    <div className="devio-grid devio-grid-2 gap-4">
-                      <div className="devio-flex devio-items-center devio-gap-2 p-3 rounded-md border border-success-200 bg-success-50">
-                        <CheckCircle className="h-4 w-4 text-success-500" />
-                        <span className="devio-text-sm">Gerenciar colaboradores</span>
-                      </div>
-                      
-                      <div className="devio-flex devio-items-center devio-gap-2 p-3 rounded-md border border-success-200 bg-success-50">
-                        <CheckCircle className="h-4 w-4 text-success-500" />
-                        <span className="devio-text-sm">Configurar sistema</span>
-                      </div>
-                      
-                      <div className="devio-flex devio-items-center devio-gap-2 p-3 rounded-md border border-success-200 bg-success-50">
-                        <CheckCircle className="h-4 w-4 text-success-500" />
-                        <span className="devio-text-sm">Visualizar relatórios</span>
-                      </div>
-                      
-                      <div className="devio-flex devio-items-center devio-gap-2 p-3 rounded-md border border-success-200 bg-success-50">
-                        <CheckCircle className="h-4 w-4 text-success-500" />
-                        <span className="devio-text-sm">Modificar dados</span>
-                      </div>
-                    </div>
-                    
-                    <Alert className="devio-alert devio-alert-warning mt-4">
-                      <AlertTriangle className="h-4 w-4" />
-                      <AlertDescription>
-                        <span className="devio-font-medium">Nível de privilégio elevado</span>
-                        <br />
-                        <span className="devio-text-sm">O nível Master concede acesso total ao sistema. Garanta que apenas colaboradores confiáveis tenham este nível.</span>
-                      </AlertDescription>
-                    </Alert>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          {/* TabContent: activity-log */}
-          <TabsContent value="activity">
-            <Card className="devio-card">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <h2 className="devio-text-lg devio-font-semibold">Histórico de Atividades</h2>
-                  <p className="devio-text-muted devio-text-sm">Últimas ações realizadas pelo colaborador</p>
-                </div>
-                <Button variant="outline" className="devio-btn devio-btn-outline devio-btn-sm">
-                  <FileText className="mr-2 h-4 w-4" />
-                  Relatório Completo
-                </Button>
-              </CardHeader>
-              
-              <CardContent className="p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[180px]">Data e Hora</TableHead>
-                      <TableHead>Descrição</TableHead>
-                      <TableHead>IP</TableHead>
-                      <TableHead className="text-right">Detalhes</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="font-mono text-xs">06/03/2025 09:15</TableCell>
-                      <TableCell>
-                        <div className="devio-flex devio-items-center devio-gap-2">
-                          <div className="devio-icon-container devio-icon-container-sm devio-icon-success">
-                            <UserCog className="h-3.5 w-3.5" />
-                          </div>
-                          <span>Login no sistema</span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">192.168.1.45</TableCell>
-                      <TableCell className="text-right">
-                        <Button variant="ghost" size="sm" className="h-8 font-normal">
-                          Ver
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    
-                    <TableRow>
-                      <TableCell className="font-mono text-xs">05/03/2025 17:22</TableCell>
-                      <TableCell>
-                        <div className="devio-flex devio-items-center devio-gap-2">
-                          <div className="devio-icon-container devio-icon-container-sm devio-icon-warning">
-                            <CircleAlert className="h-3.5 w-3.5" />
-                          </div>
-                          <span>Edição de perfil de usuário</span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">192.168.1.45</TableCell>
-                      <TableCell className="text-right">
-                        <Button variant="ghost" size="sm" className="h-8 font-normal">
-                          Ver
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    
-                    <TableRow>
-                      <TableCell className="font-mono text-xs">05/03/2025 14:10</TableCell>
-                      <TableCell>
-                        <div className="devio-flex devio-items-center devio-gap-2">
-                          <div className="devio-icon-container devio-icon-container-sm devio-icon-info">
-                            <FileText className="h-3.5 w-3.5" />
-                          </div>
-                          <span>Geração de relatório financeiro</span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">192.168.1.45</TableCell>
-                      <TableCell className="text-right">
-                        <Button variant="ghost" size="sm" className="h-8 font-normal">
-                          Ver
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    
-                    <TableRow>
-                      <TableCell className="font-mono text-xs">05/03/2025 09:30</TableCell>
-                      <TableCell>
-                        <div className="devio-flex devio-items-center devio-gap-2">
-                          <div className="devio-icon-container devio-icon-container-sm devio-icon-success">
-                            <UserCog className="h-3.5 w-3.5" />
-                          </div>
-                          <span>Login no sistema</span>
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">192.168.1.45</TableCell>
-                      <TableCell className="text-right">
-                        <Button variant="ghost" size="sm" className="h-8 font-normal">
-                          Ver
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </CardContent>
-              
-              <CardFooter className="devio-flex devio-justify-between p-4 border-t">
-                <p className="devio-text-sm devio-text-muted">
-                  Mostrando 4 de 24 atividades
-                </p>
-                
-                <div className="devio-flex devio-gap-2">
-                  <Button variant="outline" className="devio-btn devio-btn-outline devio-btn-sm">
-                    Anterior
-                  </Button>
-                  <Button variant="outline" className="devio-btn devio-btn-outline devio-btn-sm">
-                    Próximo
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
+        </TabsContent>
+      </Tabs>
+
+      {/* Modal de Exclusão */}
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <div className="flex items-center gap-2 text-red-600 mb-2">
+              <TrashIcon className="h-5 w-5" />
+              <AlertDialogTitle>Excluir Colaborador</AlertDialogTitle>
+            </div>
+            <AlertDialogDescription className="text-base text-gray-700">
+              Você está prestes a excluir o colaborador <strong>{colaborador.nome}</strong>. Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+            <div className="bg-red-50 border border-red-100 rounded-md p-3 mt-2">
+              <p className="text-sm text-red-800">
+                A exclusão removerá permanentemente todos os dados deste colaborador do sistema, incluindo seu histórico de atividades.
+              </p>
+            </div>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="mt-4">
+            <AlertDialogCancel asChild>
+              <Button variant="outline">Cancelar</Button>
+            </AlertDialogCancel>
+            <AlertDialogAction asChild>
+              <Button 
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Excluir Permanentemente
+              </Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Modal de Alteração de Status */}
+      <AlertDialog open={showStatusDialog} onOpenChange={setShowStatusDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <div className="flex items-center gap-2 text-amber-600 mb-2">
+              <PowerIcon className="h-5 w-5" />
+              <AlertDialogTitle>
+                {colaborador.status === "Ativo" ? "Desativar" : "Ativar"} Colaborador
+              </AlertDialogTitle>
+            </div>
+            <AlertDialogDescription className="text-base text-gray-700">
+              Você está prestes a {colaborador.status === "Ativo" ? "desativar" : "ativar"} o colaborador <strong>{colaborador.nome}</strong>.
+            </AlertDialogDescription>
+            <div className={`${colaborador.status === "Ativo" ? "bg-amber-50 border-amber-100" : "bg-green-50 border-green-100"} border rounded-md p-3 mt-2`}>
+              <p className={`text-sm ${colaborador.status === "Ativo" ? "text-amber-800" : "text-green-800"}`}>
+                {colaborador.status === "Ativo" 
+                  ? "Colaboradores desativados não podem acessar o sistema até que sejam ativados novamente." 
+                  : "Ao ativar este colaborador, ele poderá acessar o sistema novamente com suas credenciais."}
+              </p>
+            </div>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="mt-4">
+            <AlertDialogCancel asChild>
+              <Button variant="outline">Cancelar</Button>
+            </AlertDialogCancel>
+            <AlertDialogAction asChild>
+              <Button 
+                className={
+                  colaborador.status === "Ativo" 
+                    ? "bg-amber-600 hover:bg-amber-700" 
+                    : "bg-green-600 hover:bg-green-700"
+                }
+              >
+                {colaborador.status === "Ativo" ? "Desativar" : "Ativar"} Colaborador
+              </Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
-  );
+  )
 }

@@ -1,151 +1,164 @@
-// app/auth/verify/page.tsx
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, KeyRound, RefreshCw, Smartphone, Mail } from "lucide-react";
+// app/autenticacao/dois-fatores/page.tsx
+"use client"
 
-export default function TwoFactorVerifyPage() {
+import { useState, useEffect } from "react"
+import { 
+  Card, 
+  CardContent, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle, 
+  CardDescription 
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { InfoIcon, ArrowLeftIcon, RefreshCwIcon, ShieldIcon } from "lucide-react"
+
+export default function AutenticacaoDoisFatores() {
+  const [codigo, setCodigo] = useState<string>("")
+  const [tempoRestante, setTempoRestante] = useState<number>(300) // 5 minutos em segundos
+  const [tentativas, setTentativas] = useState<number>(0)
+  const [erro, setErro] = useState<string | null>(null)
+  const [metodoEnvio, setMetodoEnvio] = useState<string>("email") // email ou sms
+  
+  // Simulação de contagem regressiva
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTempoRestante((prev) => {
+        if (prev <= 0) {
+          clearInterval(timer)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    
+    return () => clearInterval(timer)
+  }, [])
+  
+  const formatarTempo = (segundos: number) => {
+    const minutos = Math.floor(segundos / 60)
+    const segs = segundos % 60
+    return `${minutos}:${segs < 10 ? '0' : ''}${segs}`
+  }
+  
+  const verificarCodigo = () => {
+    // Simulação de verificação
+    if (codigo === "123456") {
+      window.location.href = "/dashboard"
+    } else {
+      setErro("Código incorreto. Verifique e tente novamente.")
+      setTentativas(prev => prev + 1)
+    }
+  }
+  
+  const reenviarCodigo = () => {
+    if (tentativas < 3) {
+      setTempoRestante(300)
+      setErro(null)
+      // Simulação de reenvio
+      alert("Um novo código foi enviado para seu " + (metodoEnvio === "email" ? "e-mail" : "celular"))
+    } else {
+      setErro("Limite de tentativas excedido. Tente novamente em 15 minutos.")
+    }
+  }
+
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Cabeçalho */}
-      <header className="border-b py-4">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="flex items-center">
-            <h1 className="text-xl font-bold">Rook System</h1>
-          </div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md px-4">
+        {/* Navegação */}
+        <div className="flex items-center mb-8">
+          <Button variant="ghost" className="gap-2 text-muted-foreground" onClick={() => window.location.href = "/login"}>
+            <ArrowLeftIcon className="h-4 w-4" />
+            Voltar para login
+          </Button>
         </div>
-      </header>
-
-      {/* Conteúdo Principal */}
-      <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
+        
+        <Card className="border-gray-200 shadow-sm">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Verificação em Duas Etapas</CardTitle>
+            <div className="flex items-center gap-2 mb-2">
+              <ShieldIcon className="h-5 w-5 text-amber-600" />
+              <CardTitle className="text-xl">Verificação em duas etapas</CardTitle>
+            </div>
             <CardDescription>
-              Para sua segurança, precisamos confirmar sua identidade
+              Digite o código de verificação enviado para seu {metodoEnvio === "email" ? "e-mail secundário" : "telefone celular"}.
             </CardDescription>
           </CardHeader>
+          
           <CardContent className="space-y-4">
-            <Tabs defaultValue="email" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-4">
-                <TabsTrigger value="email" className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" />
-                  E-mail
-                </TabsTrigger>
-                <TabsTrigger value="sms" className="flex items-center gap-2">
-                  <Smartphone className="h-4 w-4" />
-                  SMS
-                </TabsTrigger>
-              </TabsList>
+            <div className="flex items-center justify-between">
+              <Badge variant="outline" className="text-sm font-normal">
+                {metodoEnvio === "email" ? "Código enviado por e-mail" : "Código enviado por SMS"}
+              </Badge>
               
-              <TabsContent value="email" className="space-y-4">
-                <div className="bg-muted rounded-lg p-4 text-sm">
-                  <p className="mb-2">Um código de verificação foi enviado para:</p>
-                  <p className="font-medium">j***@exemplo.com</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="email-code">Código de Verificação</Label>
-                  <div className="grid grid-cols-6 gap-2">
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                  </div>
-                </div>
-                
-                <div className="flex justify-center">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="flex items-center gap-1 text-muted-foreground hover:text-amber-600"
-                  >
-                    <RefreshCw className="h-3 w-3" />
-                    <span className="text-xs">Reenviar código (4:32)</span>
-                  </Button>
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="sms" className="space-y-4">
-                <div className="bg-muted rounded-lg p-4 text-sm">
-                  <p className="mb-2">Um código de verificação foi enviado para:</p>
-                  <p className="font-medium">(**) *****-1234</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="sms-code">Código de Verificação</Label>
-                  <div className="grid grid-cols-6 gap-2">
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                    <Input className="text-center" maxLength={1} />
-                  </div>
-                </div>
-                
-                <div className="flex justify-center">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="flex items-center gap-1 text-muted-foreground hover:text-amber-600"
-                  >
-                    <RefreshCw className="h-3 w-3" />
-                    <span className="text-xs">Reenviar código (4:32)</span>
-                  </Button>
-                </div>
-              </TabsContent>
-            </Tabs>
+              <Badge 
+                variant="outline" 
+                className={`${tempoRestante < 60 ? "border-red-200 text-red-700" : "border-gray-200"}`}
+              >
+                Expira em: {formatarTempo(tempoRestante)}
+              </Badge>
+            </div>
             
-            <Button className="w-full bg-amber-600 hover:bg-amber-700 gap-2 mt-4">
-              <KeyRound className="h-4 w-4" />
-              Verificar e continuar
-            </Button>
+            <div className="space-y-2">
+              <Input
+                type="text"
+                placeholder="Digite o código de 6 dígitos"
+                className="text-center text-lg tracking-widest h-12"
+                maxLength={6}
+                value={codigo}
+                onChange={(e) => setCodigo(e.target.value)}
+              />
+              
+              {erro && (
+                <Alert variant="destructive" className="py-2">
+                  <AlertDescription className="text-sm">{erro}</AlertDescription>
+                </Alert>
+              )}
+            </div>
           </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <Separator className="my-2" />
+          
+          <CardFooter className="flex flex-col gap-4">
             <Button 
-              variant="outline" 
-              size="sm" 
-              className="w-full"
-              asChild
+              className="w-full bg-amber-600 hover:bg-amber-700" 
+              disabled={codigo.length !== 6 || tempoRestante === 0}
+              onClick={verificarCodigo}
             >
-              <Link href="/auth/login" className="flex items-center justify-center gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                Voltar ao login
-              </Link>
+              Verificar código
             </Button>
+            
+            <div className="flex justify-between w-full">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-sm gap-1"
+                disabled={tentativas >= 3}
+                onClick={reenviarCodigo}
+              >
+                <RefreshCwIcon className="h-3 w-3" />
+                Reenviar código
+              </Button>
+              
+              <Button 
+                variant="link" 
+                size="sm" 
+                className="text-sm text-amber-600"
+                onClick={() => setMetodoEnvio(metodoEnvio === "email" ? "sms" : "email")}
+              >
+                Usar outro método
+              </Button>
+            </div>
+            
+            <div className="text-xs text-muted-foreground flex items-start gap-2 bg-blue-50 p-3 rounded-md border border-blue-100">
+              <InfoIcon className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+              <p>
+                O código é válido por 5 minutos. Você pode solicitar um novo código até 3 vezes antes que sua conta seja bloqueada temporariamente.
+              </p>
+            </div>
           </CardFooter>
         </Card>
-      </main>
-
-      {/* Rodapé */}
-      <footer className="border-t py-6">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">
-              © 2025 Rook System. Todos os direitos reservados.
-            </p>
-            <div className="flex items-center gap-4">
-              <Link href="#" className="text-sm text-muted-foreground hover:text-amber-600">
-                Termos de Uso
-              </Link>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-amber-600">
-                Política de Privacidade
-              </Link>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-amber-600">
-                Suporte
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      </div>
     </div>
-  );
+  )
 }
